@@ -86,6 +86,10 @@ DATABASES = {
     }
 }
 
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'tasks'  # Redirect users to tasks page after login
+LOGIN_URL = 'login'  # Redirect unauthenticated users to login page
+
 
 # DATABASES = {
 #     'default': dj_database_url.config(default='sqlite:///db.sqlite3')

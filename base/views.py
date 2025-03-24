@@ -23,18 +23,19 @@ class CustomLoginView(LoginView):
 class RegisterPage(FormView):
     template_name = 'base/register.html'
     form_class = UserCreationForm
-    redirect_authenticated_user = True
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
+        print("🚀 Form is valid! Attempting to create user...")
         user = form.save()
-        if user is not None:
+        if user:
+            print("✅ User created successfully:", user.username)
             login(self.request, user)
-        return super(RegisterPage, self).form_valid(form)
+        return super().form_valid(form)
 
-    def get(self, *args, **kwargs):
-        if self.request.user:
-         return super(RegisterPage, self).get(*args, **kwargs)       
+    def form_invalid(self, form):
+        print("❌ Form is invalid:", form.errors)  # Debugging errors
+        return super().form_invalid(form)
 
 class TaskList(LoginRequiredMixin, ListView):
     model = Task 
